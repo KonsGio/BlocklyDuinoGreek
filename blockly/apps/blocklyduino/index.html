@@ -5,7 +5,7 @@
   <script type="text/javascript" src="../../blockly_compressed.js"></script>
   <script type="text/javascript" src="../../blocks_compressed.js"></script>
   <script type="text/javascript" src="../../arduino_compressed.js"></script>
-  <script type="text/javascript" src="../../msg/js/en.js"></script>
+  <script type="text/javascript" src="../../msg/js/el.js"></script>
   <script type="text/javascript" src="Blob.js"></script>
   <script type="text/javascript" src="spin.js"></script>
   <script type="text/javascript" src="FileSaver.min.js"></script>
@@ -34,7 +34,7 @@ function tabClick(clickedName) {
       xmlDom = Blockly.Xml.textToDom(xmlText);
     } catch (e) {
       var q =
-          window.confirm('Error parsing XML:\n' + e + '\n\nAbandon changes?');
+          window.confirm('Σφάλμα:\n' + e + '\n\nΑπόρριψη αλλαγών?');
       if (!q) {
         // Leave the user on the XML tab.
         return;
@@ -179,7 +179,7 @@ function init() {
       height: 100%;
     }
     body {
-      background-color: #fff;
+      background-color: #ff8000;
       font-family: sans-serif;
       margin: 0;
       overflow: hidden;
@@ -193,11 +193,11 @@ function init() {
 
     /* Tabs */
     #tabRow>td {
-      border: 1px solid #ccc;
+      border: 1px solid #cec;
     }
     td.tabon {
-      border-bottom-color: #ddd !important;
-      background-color: #ddd;
+      border-bottom-color: #ff8000 !important;
+      background-color: #ffb380;
       padding: 5px 19px;
     }
     td.taboff {
@@ -205,7 +205,8 @@ function init() {
       padding: 5px 19px;
     }
     td.taboff:hover {
-      background-color: #eee;
+      background-color: #ffb380
+;
     }
     td.tabmin {
       border-top-style: none !important;
@@ -242,6 +243,7 @@ function init() {
     }
     #content_blocks {
       padding: 0;
+
     }
     .blocklySvg {
       border-top: none !important;
@@ -257,20 +259,22 @@ function init() {
       padding: 1px 1em;
       font-size: 90%;
       border-radius: 4px;
-      border: 1px solid #ddd;
-      background-color: #eee;
+      border: 1px solid #e65c00;
+      background-color: #ffb380;
       color: black;
     }
     button.launch {
-      border: 1px solid #d43;
-      background-color: #d43;
+      border: 1px solid #e65c00;
+      background-color: #e65c00;
       color: white;
-    }
+}
     button:active {
-      border: 1px solid blue !important;
+      border: 1px solid orange !important;
     }
     button:hover {
-      box-shadow: 2px 2px 5px #888;
+      box-shadow: 2px 2px 5px #e65c00
+;
+
     }
   </style>
 </head>
@@ -278,14 +282,14 @@ function init() {
   <table height="100%" width="100%">
     <tr>
       <td>
-        <h1><a href="https://github.com/gasolin/BlocklyDuino/wiki">BlocklyDuino</a> &gt; web-based visual programming editor for arduino</h1>
+        <h1>Blockly Duino</h1>
       </td>
     </tr>
     <tr>
       <td>
         <table width="100%">
           <tr id="tabRow" height="1em">
-            <td id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</td>
+            <td id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Κελιά</td>
             <td class="tabmin">&nbsp;</td>
             <!--td id="tab_javascript" class="taboff" onclick="tabClick(this.id)">JavaScript</td>
             <td class="tabmin">&nbsp;</td-->
@@ -297,12 +301,12 @@ function init() {
             <td class="tabmin">&nbsp;</td>
             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
             <td class="tabmax">
-              <button type="button" onclick="uploadClick()">Upload</button>
-              <button type="button" onclick="resetClick()">Reset</button>
-              <button onclick="discard()">Discard</button>
-              <button onclick="saveCode()">Save Arduino Code</button>
-              <button onclick="save()">Save XML</button>
-              <button id="fakeload">Load XML</button>
+              <button type="button" onclick="uploadClick()">Ανέβασμα αρχείου</button>
+              <button type="button" onclick="resetClick()">Επανεκίννηση</button>
+              <button onclick="discard()">Απόρριψη</button>
+              <button onclick="saveCode()">Αποθήκευση κώδικα Arduino</button>
+              <button onclick="save()">Αποθήκευση XML</button>
+              <button id="fakeload">Ανέβασμα XML</button>
               <input type="file" id="load" style="display: none;"/>
               <!--button class="launch" onclick="runJS()">Run Program</button-->
             </td>
@@ -318,15 +322,15 @@ function init() {
   <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
 
-  <xml id="toolbox" style="display: none">
-    <category name="Logic">
+  <xml id="toolbox" class="toolboxcolor" >
+    <category name="Λογικές πράξεις">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
       <block type="logic_negate"></block>
       <block type="logic_null"></block>
     </category>
-    <category name="Control">
+    <category name="Έλεγχος">
       <block type="base_delay">
         <value name="DELAY_TIME">
           <block type="math_number">
@@ -348,7 +352,7 @@ function init() {
       </block>
       <block type="controls_whileUntil"></block>
     </category>
-    <category name="Math">
+    <category name="Μαθηματικές πράξεις">
       <block type="math_number"></block>
       <block type="math_arithmetic"></block>
       <block type="base_map">
@@ -359,13 +363,13 @@ function init() {
         </value>
       </block>
     </category>
-    <category name="Text">
+    <category name="Κείμενο">
       <block type="text"></block>
     </category>
-    <category name="Variables" custom="VARIABLE"></category>
-    <category name="Functions" custom="PROCEDURE"></category>
+    <category name="Μεταβλητές" custom="VARIABLE"></category>
+    <category name="Λειτουργίες" custom="PROCEDURE"></category>
     <sep></sep>
-    <category name="Input/Output">
+    <category name="Είσοδος/Έξοδος">
       <block type="inout_highlow"></block>
       <block type="inout_digital_write"></block>
       <block type="inout_digital_read"></block>
@@ -394,7 +398,7 @@ function init() {
       <block type="inout_notone"></block>
       <block type="inout_buildin_led"></block>
     </category>
-    <category name="Servo">
+    <category name="Σερβοκίνηση">
       <block type="servo_move">
         <value name="DEGREE">
           <block type="math_number">
@@ -404,7 +408,7 @@ function init() {
       </block>
       <block type="servo_read_degrees"></block>
     </category>
-    <category name="Grove Analog">
+    <category name="Grove Αναλογικό">
       <block type="grove_rotary_angle"></block>
       <block type="grove_temporature_sensor"></block>
       <block type="grove_sound_sensor"></block>
@@ -442,7 +446,7 @@ function init() {
       <block type="grove_serial_lcd_power"></block>
       <block type="grove_serial_lcd_effect"></block>
     </category>
-    <category name="Grove Motor">
+    <category name="Grove Κινητήρας">
       <block type="grove_motor_shield"></block>
     </category>
   </xml>

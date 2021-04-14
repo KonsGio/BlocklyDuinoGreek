@@ -7,7 +7,7 @@ function runJS() {
   try {
     eval(code);
   } catch (e) {
-    alert('Program error:\n' + e);
+    alert('Σφάλμα προγράμματος:\n' + e);
   }
 }
 
@@ -35,7 +35,7 @@ function restore_blocks() {
 * Save Arduino generated code to local file.
 */
 function saveCode() {
-  var fileName = window.prompt('What would you like to name your file?', 'BlocklyDuino')
+  var fileName = window.prompt('Πως θέλετε να ονομάσετε το αρχείο?', 'BlocklyDuino')
   //doesn't save if the user quits the save prompt
   if(fileName){
     var blob = new Blob([Blockly.Arduino.workspaceToCode()], {type: 'text/plain;charset=utf-8'});
@@ -50,7 +50,7 @@ function saveCode() {
 function save() {
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var data = Blockly.Xml.domToText(xml);
-  var fileName = window.prompt('What would you like to name your file?', 'BlocklyDuino');
+  var fileName = window.prompt('Πως θέλετε να ονομάσετε το αρχείο?', 'BlocklyDuino');
   // Store data in blob.
   // var builder = new BlobBuilder();
   // builder.append(data);
@@ -80,11 +80,11 @@ function load(event) {
       try {
         var xml = Blockly.Xml.textToDom(target.result);
       } catch (e) {
-        alert('Error parsing XML:\n' + e);
+        alert('Σφάλμα XML:\n' + e);
         return;
       }
       var count = Blockly.mainWorkspace.getAllBlocks().length;
-      if (count && confirm('Replace existing blocks?\n"Cancel" will merge.')) {
+      if (count && confirm('Αντικατάσταση κελιών?\n"Cancel" will merge.')) {
         Blockly.mainWorkspace.clear();
       }
       Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
@@ -101,7 +101,7 @@ function load(event) {
  */
 function discard() {
   var count = Blockly.mainWorkspace.getAllBlocks().length;
-  if (count < 2 || window.confirm('Delete all ' + count + ' blocks?')) {
+  if (count < 2 || window.confirm('Διαγραφή  ' + count + ' κελιών?')) {
     Blockly.mainWorkspace.clear();
     renderContent();
   }
@@ -168,16 +168,16 @@ function onSuccess() {
       try {
       var xml = Blockly.Xml.textToDom(ajax.responseText);
       } catch (e) {
-        alert('Error parsing XML:\n' + e);
+        alert('Σφάλμα XML:\n' + e);
         return;
       }
       var count = Blockly.mainWorkspace.getAllBlocks().length;
-      if (count && confirm('Replace existing blocks?\n"Cancel" will merge.')) {
+      if (count && confirm('Αντικατάσταση κελιών?\n"η Ακύρωση" θα τα συγχωνεύσει.')) {
         Blockly.mainWorkspace.clear();
       }
       Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
     } else {
-      alert("Server error");
+      alert("Σφάλμα Server ");
     }
   }
 }
@@ -185,7 +185,7 @@ function onSuccess() {
 function load_by_url(uri) {
   ajax = createAJAX();
   if (!ajax) {
-　　   alert ('Not compatible with XMLHttpRequest');
+　　   alert ('Μη συμβατό XMLHttpRequest');
 　　   return 0;
 　  }
   if (ajax.overrideMimeType) {
@@ -201,7 +201,7 @@ function uploadCode(code, callback) {
     var target = document.getElementById('content_arduino');
     var spinner = new Spinner().spin(target);
 
-    var url = "http://127.0.0.1:8080/";
+    var url = "http://192.168.2.8:8080/";
     var method = "POST";
 
     // You REALLY want async = true.
@@ -223,19 +223,22 @@ function uploadCode(code, callback) {
         case 200:
             break;
         case 0:
-            errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
+            errorInfo = "code 0\n\nΔεν ήταν δυνατή η σύνδεση με το διακομιστή στη διεύθυνση " + url + ". \n" +
+                "Εκτελείται ο τοπικός διακομιστής ιστού?";
             break;
         case 400:
-            errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
+            errorInfo = "code 400\n\nBuild failed - \n" +
+                "πιθανώς λόγω μη έγκυρου πηγαίου κώδικα. Βεβαιωθείτε ότι δεν  λείπουν συνδέσεις στα μπλοκ.";
             break;
         case 500:
-            errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
+            errorInfo = "code 500\n\nUpload failed.  Είναι το Arduino συνδεδεμένο στη θύρα USB?";
             break;
         case 501:
-            errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
+            errorInfo = "code 501\n\nUpload failed. \n" +
+                "Είναι εγκατεστημένο το ino και στο μονοπάτι σας; Αυτό λειτουργεί μόνο σε Mac OS X και Linux αυτή τη στιγμή. .";
             break;
         default:
-            errorInfo = "code " + status + "\n\nUnknown error.";
+            errorInfo = "code " + status + "\n\nΜη ανιχνεύσιμο error.";
             break;
         };
         
@@ -250,13 +253,13 @@ function uploadCode(code, callback) {
 function uploadClick() {
     var code = Blockly.Arduino.workspaceToCode();
 
-    alert("Ready to upload to Arduino.");
+    alert("Όλα έτοιμα για ανέβασμα στο Arduino.");
     
     uploadCode(code, function(status, errorInfo) {
         if (status == 200) {
-            alert("Program uploaded ok");
+            alert("To πρόγραμμα φορτώθηκε");
         } else {
-            alert("Error uploading program: " + errorInfo);
+            alert("Σφάλμα κατά το φόρτωμα: " + errorInfo);
         }
     });
 }
@@ -266,7 +269,7 @@ function resetClick() {
 
     uploadCode(code, function(status, errorInfo) {
         if (status != 200) {
-            alert("Error resetting program: " + errorInfo);
+            alert("Σφάλμα επανεκκίνησης: " + errorInfo);
         }
     });
 }

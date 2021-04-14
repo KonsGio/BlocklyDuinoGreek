@@ -144,6 +144,7 @@
     top: '50%',           // center vertically
     left: '50%',          // center horizontally
     position: 'absolute'  // element position
+    
   }
 
   /** The constructor */

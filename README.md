@@ -62,25 +62,3 @@ load an example by clicking on `LoadXML` (e.g. /blocky/apps/blockyduino/examples
 4. Press `Upload` and wait until you see `Program uploaded ok` and press OK!
 5. Close terminals with `Ctrl+c` or `Ctrl+d`
 
-### ChangeLog
-
-Check changelog [here](https://github.com/BlocklyDuino/BlocklyDuino/blob/master/CHANGELOG.txt)
-
-### Authors and Contributors
-Fred Lin (@gasolin).
-
-Thanks Neil Fraser, Q.Neutron from Blockly https://developers.google.com/blockly/
-Thanks Dale Low (gumbypp) for contribute the python server to pipe BlocklyDuino source to arduino board.
-Thanks Arduino and Seeeduino guys for Arduino and Grove blocks.
-
-The project is also inspired by [arduiblock](https://github.com/taweili/ardublock) and [modkit](http://www.modk.it/)
-
-### License
-
-Copyright (C) 2012~2015 Fred Lin gasolin+blockly@gmail.com
-
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
